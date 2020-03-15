@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import './App.css';
 import Product from './component/Product'
+import Basket from './component/Basket'
 
 function App() {
   const [products, setProducts] = useState([])
@@ -13,7 +14,6 @@ function App() {
       setFilteredProducts(data)
     })
   }, [])
-
 
   return (
     <div className="container">
@@ -28,7 +28,7 @@ function App() {
           />
         </div>
         <div className="col-md-4">
-          Shopping Cart
+          <Basket />
         </div>
       </div>
     </div>

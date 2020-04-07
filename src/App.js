@@ -8,7 +8,6 @@ function App() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  const [newTotal, setNewTotal] = useState()
   const [sort, setSort] = useState('')
 
   useEffect(() => {
@@ -24,64 +23,60 @@ function App() {
     setCart(prevProps => [...prevProps, filteredProduct]);
   }
 
-  const removeProductFromCart = (id, price) => {
-    setNewTotal(price)
+  const removeProductFromCart = (id) => {
     let removed = cart.filter(item => item[0].id !== id)
-    if(removed.length > 0) {
-      setCart(removed);
-    } else {
-      setCart([]);
-    }
+    setCart(() => removed.length > 0 ? removed : [] )
   }
 
   const handleChangeSort = (e) => {
     setSort(e.target.value)
-    listProducts()
+    listProducts(e.target.value)
   }
 
-  const listProducts = (e) => {
+  const listProducts = (sort) => {
     setFilteredProducts(() => {
-      console.log(sort)
       if(sort === 'lowest') {
         products.sort((a, b) => a.price > b.price ? 1 : -1)
       } else if(sort === 'highest') {
         products.sort((a, b) => a.price < b.price ? 1 : -1)
       } else {
-        products.sort((a, b) => (a.id > b.id ? 1 : -1))
+        products.sort((a, b) => a.id > b.id ? 1 : -1)
       }
-      return products
     })
   }
 
   return (
-    <div className="container app">
-      <h1 className="text-center pt-3">E-Commerce Shoping Cart Application</h1>
-      <hr />
-      <Filter
-        // size={size}
-        sort={sort}
-        // handleChangeSize={handleChangeSize}
-        handleChangeSort={handleChangeSort}
-        count={filteredProducts.length}
-      />
-      <hr />
-      <div className="row m-auto">
-        <div className="col-md-8">
-          <Product
-            products={products}
-            filteredProducts={filteredProducts}
-            addProductToCart={addProductToCart}
-          />
-        </div>
-        <div className="col-md-4">
-          <Basket
-            cart={cart}
-            removed={removeProductFromCart}
-            newTotal={newTotal}
-          />
+    <div className="app">
+      <div className="container">
+        <h1 className="text-center pt-3">E-Commerce Shopping Cart Application</h1>
+        <hr />
+        <Filter
+          // size={size}
+          sort={sort}
+          // handleChangeSize={handleChangeSize}
+          handleChangeSort={handleChangeSort}
+          count={products.length}
+        />
+        <hr />
+        <div className="row m-auto">
+          <div className="col-md-8">
+            <Product
+              products={products}
+              filteredProducts={filteredProducts}
+              addProductToCart={addProductToCart}
+              sort={sort}
+            />
+          </div>
+          <div className="col-md-4">
+            <Basket
+              cart={cart}
+              removed={removeProductFromCart}
+            />
+          </div>
         </div>
       </div>
     </div>
+
   );
 }
 

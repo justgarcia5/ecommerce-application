@@ -1,9 +1,9 @@
-.card {
-  background-color: rgb(103, 144, 184);
+.app {
+  background-color: lightgrey;
 }
 
-.app {
-  background-color: rgb(192, 189, 189);
+.card {
+  background-color: rgb(103, 144, 184);
 }
 
 .cart {

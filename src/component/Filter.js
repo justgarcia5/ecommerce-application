@@ -8,7 +8,7 @@ export default function Filter(props) {
       </div>
       <div className="col-md-4">
         <label>
-          <p>Order by:</p>
+          <div>Order by:</div>
           <select className="form-control" value={props.sort} onChange={props.handleChangeSort}>
             <option value="">Select</option>
             <option value="lowest">Lowest to Highest</option>

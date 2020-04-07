@@ -1,6 +1,8 @@
 import React from 'react'
 
 export default function Product(props) {
+  // console.log(props.sort)
+
   return(
     <div>
       <h4>Products</h4>
@@ -16,7 +18,7 @@ export default function Product(props) {
               </div>
               <div className="text-center">
                 <b>${product.price.toFixed(2)}</b><br />
-                <button className="btn btn-secondary" onClick={() => props.addProductToCart(product.id)}>Add to cart</button>
+                <button className="btn btn-secondary mt-auto" onClick={() => props.addProductToCart(product.id)}>Add to cart</button>
               </div>
             </div>
           )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Product from './component/Product';
 import Basket from './component/Basket';
@@ -9,18 +9,29 @@ function App() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [sort, setSort] = useState('')
+  // const [quantity, setQuantity] = useState(0)
 
   useEffect(() => {
     fetch('http://localhost:8000/products').then(res => res.json())
     .then(data => {
       setProducts(data);
-      setFilteredProducts(data);
+      setFilteredProducts(data)
     })
   }, [])
 
-  const addProductToCart = (id) => {
-    let filteredProduct = products.filter(product => product.id === id);
-    setCart(prevProps => [...prevProps, filteredProduct]);
+  const addProductToCart = (id, product) => {
+    let productAlreadyInCart = false;
+    cart.forEach(item => {
+      if(item[0].id === product.id) {
+        productAlreadyInCart = true;
+        // setQuantity(quantity+1)
+      }
+    })
+    if(!productAlreadyInCart) {
+      let filteredProduct = products.filter(product => product.id === id);
+      setCart(prevProps => [...prevProps, filteredProduct]);
+      // setQuantity(1)
+    }
   }
 
   const removeProductFromCart = (id) => {
@@ -29,18 +40,21 @@ function App() {
   }
 
   const handleChangeSort = (e) => {
-    setSort(e.target.value)
-    listProducts(e.target.value)
+    let sort = e.target.value
+    setSort(sort)
+    listProducts(sort)
   }
 
   const listProducts = (sort) => {
     setFilteredProducts(() => {
       if(sort === 'lowest') {
-        products.sort((a, b) => a.price > b.price ? 1 : -1)
+        return products.sort((a, b) => a.price > b.price ? 1 : -1)
       } else if(sort === 'highest') {
-        products.sort((a, b) => a.price < b.price ? 1 : -1)
+        return products.sort((a, b) => a.price < b.price ? 1 : -1)
+      } else if (sort !== '') {
+        return products.filter((product) => product.availableSizes.indexOf(sort) >= 0)
       } else {
-        products.sort((a, b) => a.id > b.id ? 1 : -1)
+        return products.sort((a, b) => a.id > b.id ? 1 : -1)
       }
     })
   }
@@ -51,18 +65,16 @@ function App() {
         <h1 className="text-center pt-3">E-Commerce Shopping Cart Application</h1>
         <hr />
         <Filter
-          // size={size}
           sort={sort}
-          // handleChangeSize={handleChangeSize}
           handleChangeSort={handleChangeSort}
-          count={products.length}
+          count={filteredProducts.length}
         />
         <hr />
         <div className="row m-auto">
           <div className="col-md-8">
             <Product
+            filteredProducts={filteredProducts}
               products={products}
-              filteredProducts={filteredProducts}
               addProductToCart={addProductToCart}
               sort={sort}
             />
@@ -71,12 +83,12 @@ function App() {
             <Basket
               cart={cart}
               removed={removeProductFromCart}
+              // quantity={quantity}
             />
           </div>
         </div>
       </div>
     </div>
-
   );
 }
 

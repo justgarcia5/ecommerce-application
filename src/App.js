@@ -18,22 +18,23 @@ function App() {
     })
   }, [])
 
-
   const addProductToCart = (id, product) => {
     let productAlreadyInCart = false;
     cart.forEach(item => {
-      if(item[0].id === product.id) {
+      if(item.id === product.id) {
         productAlreadyInCart = true;
+        item.count++
+        setCart(prevProps => [...prevProps]);
       }
     })
     if(!productAlreadyInCart) {
-      let filteredProduct = products.filter(product => product.id === id);
-      setCart(prevProps => [...prevProps, filteredProduct]);
+      setCart(prevProps => [...prevProps, {...product, count: 1}]);
     }
+    // localStorage.setItem("cart", JSON.stringify(cart));
   }
 
   const removeProductFromCart = (id) => {
-    let removed = cart.filter(item => item[0].id !== id)
+    let removed = cart.filter(item => item.id !== id)
     setCart(() => removed.length > 0 ? removed : [] )
   }
 
@@ -81,6 +82,7 @@ function App() {
             <Basket
               cart={cart}
               removed={removeProductFromCart}
+              setCart={setCart}
             />
           </div>
         </div>

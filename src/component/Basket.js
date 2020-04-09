@@ -1,20 +1,18 @@
 import React from 'react';
 
 export default function Basket(props) {
+  const product = props.cart.map(item => item.count)
+  const cartItems = product.reduce((a, b) => a + b, 0)
 
-  let product = props.cart.map(item => item.count)
-  let cartItems = product.reduce((a, b) => a + b, 0)
-
-  const onChange = (e, product) => {
+  const onChange = (e) => {
     return props.cart.map(item => {
       if(e.target.name === item.title) {
         item.count = e.target.value
-        props.setCart(prevProps =>[...prevProps])
+        props.setCart(prevProps => [...prevProps])
       }
     })
   }
   console.log(props.cart)
-
 
   return(
     <div>
@@ -41,7 +39,7 @@ export default function Basket(props) {
               </div>
               <div className="row pl-5">
                 <div className="col-md-8 d-flex">
-                  <input style={styles.input} name={item.title} className="form-control" width={10} value={item.count} onChange={onChange}/>
+                  <input className="form-control" style={styles.input} name={item.title} width={10} value={item.count} onChange={onChange}/>
                   <p className="p-2"> x ${item.price.toFixed(2)}</p>
                 </div>
                 <div className="col-md-4 p-2">
@@ -61,7 +59,6 @@ export default function Basket(props) {
         }
       </div>
     </div>
-
   )
 }
 

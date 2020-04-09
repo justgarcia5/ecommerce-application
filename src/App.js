@@ -30,7 +30,6 @@ function App() {
     if(!productAlreadyInCart) {
       setCart(prevProps => [...prevProps, {...product, count: 1}]);
     }
-    // localStorage.setItem("cart", JSON.stringify(cart));
   }
 
   const removeProductFromCart = (id) => {

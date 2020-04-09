@@ -1,8 +1,5 @@
 import React from 'react'
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
-
 export default function Product(props) {
   const products = props.filteredProducts.length <= 1 ? props.products : props.filteredProducts
   return(

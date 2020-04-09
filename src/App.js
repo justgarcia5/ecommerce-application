@@ -9,7 +9,6 @@ function App() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [sort, setSort] = useState('')
-  // const [quantity, setQuantity] = useState(0)
 
   useEffect(() => {
     fetch('http://localhost:8000/products').then(res => res.json())
@@ -22,20 +21,20 @@ function App() {
   const addProductToCart = (id, product) => {
     let productAlreadyInCart = false;
     cart.forEach(item => {
-      if(item[0].id === product.id) {
+      if(item.id === product.id) {
         productAlreadyInCart = true;
-        // setQuantity(quantity+1)
+        item.count++
+        setCart(prevProps => [...prevProps]);
       }
     })
     if(!productAlreadyInCart) {
-      let filteredProduct = products.filter(product => product.id === id);
-      setCart(prevProps => [...prevProps, filteredProduct]);
-      // setQuantity(1)
+      setCart(prevProps => [...prevProps, {...product, count: 1}]);
     }
+    // localStorage.setItem("cart", JSON.stringify(cart));
   }
 
   const removeProductFromCart = (id) => {
-    let removed = cart.filter(item => item[0].id !== id)
+    let removed = cart.filter(item => item.id !== id)
     setCart(() => removed.length > 0 ? removed : [] )
   }
 
@@ -83,7 +82,7 @@ function App() {
             <Basket
               cart={cart}
               removed={removeProductFromCart}
-              // quantity={quantity}
+              setCart={setCart}
             />
           </div>
         </div>

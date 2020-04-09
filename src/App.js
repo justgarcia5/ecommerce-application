@@ -72,7 +72,7 @@ function App() {
         <div className="row m-auto">
           <div className="col-md-8">
             <Product
-            filteredProducts={filteredProducts}
+              filteredProducts={filteredProducts}
               products={products}
               addProductToCart={addProductToCart}
               sort={sort}

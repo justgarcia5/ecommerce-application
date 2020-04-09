@@ -1,26 +1,24 @@
 import React from 'react';
 
 export default function Basket(props) {
-  const product = props.cart.map(item => item.count)
-  const cartItems = product.reduce((a, b) => a + b, 0)
-
+  const total = props.cart.reduce((a, b) => a + b.price * b.count, 0).toFixed(2);
+//
   const onChange = (e) => {
-    return props.cart.map(item => {
+    props.cart.map(item => {
       if(e.target.name === item.title) {
-        item.count = e.target.value
-        props.setCart(prevProps => [...prevProps])
+        item.count = e.target.value;
+        props.setCart(prevProps => [...prevProps]);
       }
     })
   }
-  console.log(props.cart)
 
   return(
     <div>
       <h3 className="pb-3 text-center">Shopping Cart</h3>
       <div>
-        {/* {props.cart.length > 0 &&
-          <p>You have {cartItems} items in your cart</p>
-        } */}
+        {props.cart.length >= 0 &&
+          <p>You have {props.cart.length} items in your cart</p>
+        }
         {props.cart.map((item) => {
           return(
             <div key={item.id} className="cart-item">
@@ -32,9 +30,10 @@ export default function Basket(props) {
                 </div>
                 <div className="col-md-8">
                   <p className="p-0">{item.title}</p><br/>
+
                 </div>
                 <div className="col-md-2">
-                  <button className="btn btn-danger" onClick={() => props.removed(item.id, item.price)}>Remove</button>
+                  <button className="btn btn-danger" onClick={() => props.removed(item.id)}>Remove</button>
                 </div>
               </div>
               <div className="row pl-5">
@@ -50,11 +49,13 @@ export default function Basket(props) {
             </div>
           )})
         }
-        {/* {props.cart.length > 0 &&
-
-          <div className="text-right">Total: ${total}</div>
-        } */}
-        {props.cart.length < 1 &&
+        {props.cart.length > 0 &&
+        <div>
+          <div className="text-right pr-1">Total: ${total}</div>
+          <button className="btn btn-primary float-right mt-2" onClick={() => alert("Ready to checkout!")}>Checkout</button>
+        </div>
+        }
+        {props.cart.length <= 0 &&
           <div className="text-center">Cart is empty</div>
         }
       </div>

@@ -16,6 +16,9 @@ function App() {
       setProducts(data);
       setFilteredProducts(data)
     })
+    if(localStorage.getItem('cart')) {
+      setCart(() => JSON.parse(localStorage.getItem('cart')))
+    }
   }, [])
 
   const addProductToCart = (id, product) => {
@@ -30,11 +33,14 @@ function App() {
     if(!productAlreadyInCart) {
       setCart(prevProps => [...prevProps, {...product, count: 1}]);
     }
+    localStorage.setItem("cart", JSON.stringify(cart))
   }
 
   const removeProductFromCart = (id) => {
-    let removed = cart.filter(item => item.id !== id)
-    setCart(() => removed.length > 0 ? removed : [] )
+    const items = cart.filter(item => item.id !== id)
+    localStorage.setItem('cart', items)
+    setCart(items)
+
   }
 
   const handleChangeSort = (e) => {

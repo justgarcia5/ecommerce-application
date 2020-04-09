@@ -5,16 +5,27 @@ export default function Basket(props) {
   let product = props.cart.map(item => item.count)
   let cartItems = product.reduce((a, b) => a + b, 0)
 
+  const onChange = (e, product) => {
+    return props.cart.map(item => {
+      if(e.target.name === item.title) {
+        item.count = e.target.value
+        props.setCart(prevProps =>[...prevProps])
+      }
+    })
+  }
+  console.log(props.cart)
+
+
   return(
     <div>
       <h3 className="pb-3 text-center">Shopping Cart</h3>
       <div>
-        {props.cart.length > 0 &&
+        {/* {props.cart.length > 0 &&
           <p>You have {cartItems} items in your cart</p>
-        }
-        {props.cart.map((item, index) => {
+        } */}
+        {props.cart.map((item) => {
           return(
-            <div key={index} className="cart-item">
+            <div key={item.id} className="cart-item">
               <div className="row">
                 <div className="col-md-2">
                   <a href="/#">
@@ -29,10 +40,11 @@ export default function Basket(props) {
                 </div>
               </div>
               <div className="row pl-5">
-                <div className="col-md-8">
-                <p className="">Quantity: {item.count} x ${item.price.toFixed(2)}</p>
+                <div className="col-md-8 d-flex">
+                  <input style={styles.input} name={item.title} className="form-control" width={10} value={item.count} onChange={onChange}/>
+                  <p className="p-2"> x ${item.price.toFixed(2)}</p>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 p-2">
                   ${(item.count * item.price).toFixed(2)}
                 </div>
               </div>
@@ -51,4 +63,11 @@ export default function Basket(props) {
     </div>
 
   )
+}
+
+const styles = {
+  input: {
+    width: 45,
+    margin: 0,
+  }
 }

@@ -5,7 +5,7 @@
       "id": 1,
       "sku": 18644119330491312,
       "title": "Sphynx Tie Dye Grey T-Shirt",
-      "description": "Sphynx Tie Dye Grey",
+      "description": "Sphynx Tie Dye Grey T-Shirt",
       "availableSizes": ["S", "L", "XL", "XXL"],
       "price": 10,
       "isFreeShipping": true
@@ -34,7 +34,7 @@
     {
       "id": 4,
       "sku": 9197907543445677,
-      "title": "Born On The Streets  T-Shirt",
+      "title": "Born On The Streets T-Shirt",
       "description": "Born On The Streets",
       "availableSizes": ["XL"],
       "price": 25.9,

@@ -25,7 +25,7 @@ export default function Basket(props) {
               <div className="row">
                 <div className="col-md-2">
                   <a href="/#">
-                    <img className="" src={`/products/${item.sku}_2.jpg`} alt={item.title}/>
+                    <img className="" src={`/products/${parseInt(item.sku)}_2.jpg`} alt={item.title}/>
                   </a>
                 </div>
                 <div className="col-md-8">
@@ -39,7 +39,7 @@ export default function Basket(props) {
               <div className="row pl-5">
                 <div className="col-md-8 d-flex">
                   <input className="form-control" style={styles.input} name={item.title} width={10} value={item.count} onChange={onChange}/>
-                  <p className="p-2"> x ${item.price.toFixed(2)}</p>
+                  <p className="p-2"> x ${item.price}</p>
                 </div>
                 <div className="col-md-4 p-2">
                   ${(item.count * item.price).toFixed(2)}

@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function Product(props) {
   const products = props.filteredProducts.length <= 1 ? props.products : props.filteredProducts
+  // console.log(products)
   return(
     <div>
       <h3 className="pb-3">Products</h3>
@@ -11,13 +12,13 @@ export default function Product(props) {
             <div className="col-md-4 pt-2 pb-2 card" key={product.id}>
               <div className="thumbnail text-center">
                 <a href="/#">
-                  <img src={`/products/${product.sku}_2.jpg`} alt={product.title}/>
+                  <img src={`/products/${parseInt(product.sku)}_2.jpg`} alt={product.title}/>
                 </a>
                 <p>{product.title}</p>
-                Sizes: {`${product.availableSizes} `}
+                Sizes: {`${product.availablesizes} `}
               </div>
               <div className="text-center">
-                <b>${product.price.toFixed(2)}</b><br />
+                <b>{product.price}</b><br />
                 <button className="btn btn-success mt-2" onClick={() => props.addProductToCart(product.id, product)}>Add to cart</button>
               </div>
             </div>

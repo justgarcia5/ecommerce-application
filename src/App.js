@@ -13,8 +13,9 @@ function App() {
   const [sort, setSort] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:8000/products').then(res => res.json())
+    fetch('http://localhost:3000/products').then(res => res.json())
     .then(data => {
+      console.log(data)
       setProducts(data);
       setFilteredProducts(data)
     })
@@ -58,7 +59,7 @@ function App() {
       } else if(sort === 'highest') {
         return products.sort((a, b) => a.price < b.price ? 1 : -1)
       } else if (sort !== '') {
-        return products.filter((product) => product.availableSizes.indexOf(sort) >= 0)
+        return products.filter((product) => product.availablesizes.indexOf(sort) >= 0)
       } else {
         return products.sort((a, b) => a.id > b.id ? 1 : -1)
       }

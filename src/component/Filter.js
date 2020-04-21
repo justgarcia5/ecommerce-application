@@ -3,7 +3,7 @@ import React from 'react';
 export default function Filter(props) {
   return(
     <div className="row pt-3 pb-3">
-      <h4 className="col-md-4 pt-3">
+      <h4 className="col-md-4 pt-3 pl-4">
         {props.count} products found
       </h4>
       <div className="col-md-4">

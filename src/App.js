@@ -20,7 +20,8 @@ function App() {
       setFilteredProducts(data)
     })
     if(localStorage.getItem('cart')) {
-      setCart(() => JSON.parse(localStorage.getItem('cart')))
+      console.log(JSON.parse(localStorage.getItem('cart')))
+      setCart(JSON.parse(localStorage.getItem('cart')))
     }
   }, [])
 

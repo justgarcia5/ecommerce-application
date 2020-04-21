@@ -18,7 +18,7 @@ export default function Product(props) {
                 Sizes: {`${product.availablesizes} `}
               </div>
               <div className="text-center">
-                <b>{product.price}</b><br />
+                <b>{product.price.toFixed(2)}</b><br />
                 <button className="btn btn-success mt-2" onClick={() => props.addProductToCart(product.id, product)}>Add to cart</button>
               </div>
             </div>

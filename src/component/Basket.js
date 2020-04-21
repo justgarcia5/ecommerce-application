@@ -16,32 +16,32 @@ export default function Basket(props) {
     <div>
       <h3 className="pb-3 text-center">Shopping Cart</h3>
       <div>
-        {props.cart.length >= 0 &&
+        {props.cart.length > 0 &&
           <p>You have {props.cart.length} items in your cart</p>
         }
         {props.cart.map((item) => {
           return(
             <div key={item.id} className="cart-item">
               <div className="row">
-                <div className="col-md-2">
+                <div className="col-sm">
                   <a href="/#">
-                    <img className="" src={`/products/${parseInt(item.sku)}_2.jpg`} alt={item.title}/>
+                    <img className="ml-4" src={`/products/${parseInt(item.sku)}_2.jpg`} alt={item.title}/>
                   </a>
                 </div>
-                <div className="col-md-8">
+                <div className="col-sm">
                   <p className="p-0">{item.title}</p><br/>
 
                 </div>
-                <div className="col-md-2">
+                <div className="col-sm">
                   <button className="btn btn-danger" onClick={() => props.removed(item.id)}>Remove</button>
                 </div>
               </div>
               <div className="row pl-5">
-                <div className="col-md-8 d-flex">
-                  <input className="form-control" style={styles.input} name={item.title} width={10} value={item.count} onChange={onChange}/>
-                  <p className="p-2"> x ${item.price}</p>
+                <div className="col-sm-8 d-flex">
+                  <input className="form-control" style={styles.input} type="number" pattern="[0-9]*" name={item.title} value={item.count} onChange={onChange}/>
+                  <p className="p-2"> x ${item.price.toFixed(2)}</p>
                 </div>
-                <div className="col-md-4 p-2">
+                <div className="col-sm-4 p-2">
                   ${(item.count * item.price).toFixed(2)}
                 </div>
               </div>
@@ -65,7 +65,7 @@ export default function Basket(props) {
 
 const styles = {
   input: {
-    width: 45,
+    width: 65,
     margin: 0,
   }
 }

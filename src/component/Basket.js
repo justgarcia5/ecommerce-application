@@ -1,8 +1,16 @@
 import React from 'react';
+import {
+  Link
+} from "react-router-dom";
 
 export default function Basket(props) {
-  const total = props.cart.reduce((a, b) => a + b.price * b.count, 0).toFixed(2);
-//
+  const total = props.cart.reduce((a, b) => a + b.price * b.count, 0);
+  const totalInt = parseInt(total);
+  const taxed = (total * .075).toFixed(2);
+  const taxedInt = parseFloat(taxed);
+  const sum = taxedInt + totalInt;
+  console.log(taxedInt,totalInt)
+
   const onChange = (e) => {
     props.cart.map(item => {
       if(e.target.name === item.title) {
@@ -24,13 +32,12 @@ export default function Basket(props) {
             <div key={item.id} className="cart-item">
               <div className="row">
                 <div className="col-sm">
-                  <a href="/#">
+                  <Link to={`product/${item.id}`}>
                     <img className="ml-4" src={`/products/${parseInt(item.sku)}_2.jpg`} alt={item.title}/>
-                  </a>
+                  </Link>
                 </div>
                 <div className="col-sm">
                   <p className="p-0">{item.title}</p><br/>
-
                 </div>
                 <div className="col-sm">
                   <button className="btn btn-danger" onClick={() => props.removed(item.id)}>Remove</button>
@@ -39,10 +46,10 @@ export default function Basket(props) {
               <div className="row pl-5">
                 <div className="col-sm-8 d-flex">
                   <input className="form-control" style={styles.input} type="number" pattern="[0-9]*" name={item.title} value={item.count} onChange={onChange}/>
-                  <p className="p-2"> x ${item.price.toFixed(2)}</p>
+                  <p className="p-2"> x ${item.price}</p>
                 </div>
                 <div className="col-sm-4 p-2">
-                  ${(item.count * item.price).toFixed(2)}
+                  ${(item.count * item.price)}
                 </div>
               </div>
               <hr />
@@ -51,7 +58,8 @@ export default function Basket(props) {
         }
         {props.cart.length > 0 &&
         <div>
-          <div className="text-right pr-1">Total: ${total}</div>
+          <div className="text-right pr-1">Tax: ${taxedInt}</div>
+          <div className="text-right pr-1">Total: ${sum}</div>
           <button className="btn btn-primary float-right mt-2" onClick={() => alert("Ready to checkout!")}>Checkout</button>
         </div>
         }

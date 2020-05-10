@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import './App.css';
-import Product from './component/Product';
-import Basket from './component/Basket';
-import Filter from './component/Filter'
+import '../App.css';
+import Product from '../component/Product';
+import Basket from '../component/Basket';
+import Filter from '../component/Filter'
 
 
 function App() {
@@ -15,12 +15,10 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:3000/products').then(res => res.json())
     .then(data => {
-      console.log(data)
       setProducts(data);
       setFilteredProducts(data)
     })
     if(localStorage.getItem('cart')) {
-      console.log(JSON.parse(localStorage.getItem('cart')))
       setCart(JSON.parse(localStorage.getItem('cart')))
     }
   }, [])

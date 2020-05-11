@@ -10,6 +10,7 @@ export default function Product(props) {
       <h3 className="pb-3">Products</h3>
       <div className="row m-auto pb-5">
         {products.map((product) => {
+          // console.log(typeof product.price)
           return(
             <div className="col-md-4 pt-2 pb-2 card" key={product.id}>
               <div className="thumbnail text-center">
@@ -26,7 +27,7 @@ export default function Product(props) {
                 Sizes: {`${product.availablesizes} `}
               </div>
               <div className="text-center">
-                <b>{product.price}</b><br />
+                <b>{product.price.toFixed(2)}</b><br />
                 <button className="btn btn-success mt-2" onClick={() => props.addProductToCart(product.id, product)}>Add to cart</button>
               </div>
             </div>

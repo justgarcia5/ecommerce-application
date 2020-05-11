@@ -42,7 +42,6 @@ function App() {
     const items = cart.filter(item => item.id !== id)
     localStorage.setItem('cart', items)
     setCart(items)
-
   }
 
   const handleChangeSort = (e) => {
